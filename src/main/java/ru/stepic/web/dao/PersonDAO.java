@@ -29,6 +29,7 @@ public class PersonDAO {   //Data Access Object патерн работы с Б�
     }
 
     public void save(Person person){
+       jdbcTemplate.update("INSERT INTO first_schema.person VALUES(15,?,?,?)", person.getName(),person.getAge(),person.getEmail());
 //        try {
 //            PreparedStatement preparedStatement =
 //                      connection.prepareStatement("INSERT INTO first_schema.person VALUES(12,?,?,?)");
@@ -44,6 +45,8 @@ public class PersonDAO {   //Data Access Object патерн работы с Б�
 //
     }
     public void update(int id, Person updatedPerson){
+       jdbcTemplate.update("UPDATE first_schema.person SET name=?, age=?, email=? WHERE id=?"
+               , updatedPerson.getName(), updatedPerson.getAge(), updatedPerson.getEmail(), id);
 //        try {
 //            PreparedStatement preparedStatement =
 //                    connection.prepareStatement("UPDATE first_schema.person SET name=?, age=?, email=? WHERE id=?");
@@ -60,6 +63,7 @@ public class PersonDAO {   //Data Access Object патерн работы с Б�
 
     }
     public void delete(int id){
+       jdbcTemplate.update("DELETE FROM first_schema.person WHERE id=?", id);
 //        try {
 //            PreparedStatement preparedStatement =
 //                    connection.prepareStatement("DELETE FROM first_schema.person WHERE id=?");
