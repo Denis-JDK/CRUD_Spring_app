@@ -1,6 +1,7 @@
 package ru.stepic.web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.stepic.web.models.Person;
@@ -18,12 +19,12 @@ public class PersonDAO {   //Data Access Object патерн работы с Б�
     }
 
     public List<Person> index(){
-       jdbcTemplate.query("SELECT * FROM first_schema.person", new PersonMapper());
+      return jdbcTemplate.query("SELECT * FROM first_schema.person", new BeanPropertyRowMapper<>(Person.class));
 
     }
 
     public Person show(int id){
-        return jdbcTemplate.query("SELECT * FROM first_schema.person WHERE id=?", new Object[]{id}, new PersonMapper())
+        return jdbcTemplate.query("SELECT * FROM first_schema.person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null); //урок 27, 23 минута Spring Алишев
     }
 
